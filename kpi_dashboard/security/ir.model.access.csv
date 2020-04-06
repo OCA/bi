@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kpi_dashboard,access_kpi_dashboard,model_kpi_dashboard,base.group_user,1,1,1,0
+access_kpi_dashboard_kpi,access_kpi_dashboard,model_kpi_dashboard_kpi,base.group_user,1,1,1,0
+access_kpi_kpi,access_kpi_dashboard,model_kpi_kpi,base.group_user,1,1,1,0

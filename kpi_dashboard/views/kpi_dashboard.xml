@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 Creu Blanca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="kpi_dashboard_form_view">
+        <field name="name">kpi.dashboard.form (in kpi_dashboard)</field>
+        <field name="model">kpi.dashboard</field>
+        <field name="arch" type="xml">
+            <form>
+                <header/>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <notebook>
+                        <page name="kpi" string="KPIs">
+                            <field name="kpi_ids">
+                                <tree editable="bottom">
+                                    <field name="kpi_id"/>
+                                    <field name="column"/>
+                                    <field name="row"/>
+                                    <field name="size_x"/>
+                                    <field name="size_y"/>
+                                    <field name="color" widget="color"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="widget" string="Widget configuration">
+                            <group>
+                                <group>
+                                    <field name="margin_x"/>
+                                    <field name="margin_y"/>
+                                </group>
+                                <group>
+                                    <field name="widget_dimension_x"/>
+                                    <field name="widget_dimension_y"/>
+                                </group>
+                                <group>
+                                    <field name="number_of_columns"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter"></div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="kpi_dashboard_search_view">
+        <field name="name">kpi.dashboard.search (in kpi_dashboard)</field>
+        <field name="model">kpi.dashboard</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="kpi_dashboard_tree_view">
+        <field name="name">kpi.dashboard.tree (in kpi_dashboard)</field>
+        <field name="model">kpi.dashboard</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="kpi_dashboard_dashboard_view">
+        <field name="name">kpi.dashboard.dashboard (in kpi_dashboard)</field>
+        <field name="model">kpi.dashboard</field>
+        <field name="arch" type="xml">
+            <dashboard/>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="kpi_dashboard_act_window">
+        <field name="name">Kpi Dashboard</field> <!-- TODO -->
+        <field name="res_model">kpi.dashboard</field>
+        <field name="view_mode">tree,form,dashboard</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record model="ir.ui.menu" id="kpi_dashboard_menu">
+        <field name="name">Kpi Dashboard</field>
+        <field name="parent_id" ref="base.menu_reporting_config"/> <!-- TODO -->
+        <field name="action" ref="kpi_dashboard_act_window"/>
+        <field name="sequence" eval="16"/> <!-- TODO -->
+    </record>
+
+</odoo>

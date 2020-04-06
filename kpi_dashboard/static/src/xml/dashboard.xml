@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<template>
+    <t t-name="dashboard_kpi.base">
+        <div class="gridster kpi_dashboard">
+            <ul/>
+        </div>
+    </t>
+    <t t-name="kpi_dashboard.base_widget">
+        <li t-att-data-row="widget.row"
+            t-att-data-col="widget.col"
+            t-att-data-sizex="widget.sizex"
+            t-att-data-sizey="widget.sizey"
+        >
+            <div class="kpi">
+                <h1 class="title" t-esc="widget.values.name"/>
+                <p class="updated_at" data-bind="value_last_update_display"/>
+            </div>
+        </li>
+    </t>
+    <t t-name="kpi_dashboard.number" t-extend="kpi_dashboard.base_widget">
+        <t t-jquery="h1" t-operation="after">
+            <h2 class="numbervalue" data-bind="value"/>
+            <p class="change-rate">
+              <i class="fa" data-bind="arrow"/><span data-bind="difference"></span>
+            </p>
+        </t>
+    </t>
+    <t t-name="kpi_dashboard.meter" t-extend="kpi_dashboard.base_widget">
+        <t t-jquery="h1" t-operation="after">
+            <div class="centered">
+            <div class="GaugeMeter" data-bind="value">
+            </div>
+            </div>
+                   <!--data-bind-data-min="min" data-bind-data-max="max">-->
+        </t>
+    </t>
+</template>
