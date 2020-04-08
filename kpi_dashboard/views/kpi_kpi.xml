@@ -12,6 +12,7 @@
                 <header>
                     <button name="generate_cron" string="Generate cron" type="object"
                             attrs="{'invisible': [('cron_id', '!=',False)]}"/>
+                    <button name="compute" string="Compute now" type="object"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box"/>
@@ -28,11 +29,17 @@
                             <field name="kwargs" attrs="{'invisible': [('computation_method', '!=', 'function')]}"/>
                         </group>
                         <group>
-                            <field name="cron_id" attrs="{'invisible': [('cron_id', '!=',False)]}" readonly="True"/>
+                            <field name="cron_id" attrs="{'invisible': [('cron_id', '=',False)]}" readonly="True"/>
+                        </group>
+                        <group>
+                            <field name="suffix"/>
+                            <field name="prefix"/>
+                        </group>
+                        <group>
+                            <field name="action_id"/>
                         </group>
                     </group>
                 </sheet>
-                <div class="oe_chatter"></div>
             </form>
         </field>
     </record>
@@ -58,7 +65,7 @@
     </record>
 
     <record model="ir.actions.act_window" id="kpi_kpi_act_window">
-        <field name="name">Kpi Kpi</field> <!-- TODO -->
+        <field name="name">Kpi</field>
         <field name="res_model">kpi.kpi</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[]</field>
@@ -66,10 +73,10 @@
     </record>
 
     <record model="ir.ui.menu" id="kpi_kpi_menu">
-        <field name="name">Kpi Kpi</field>
-        <field name="parent_id" ref="base.menu_reporting_config"/> <!-- TODO -->
+        <field name="name">Configure Kpi</field>
+        <field name="parent_id" ref="menu_configuration_kpi_dashboards"/>
         <field name="action" ref="kpi_kpi_act_window"/>
-        <field name="sequence" eval="16"/> <!-- TODO -->
+        <field name="sequence" eval="20"/>
     </record>
 
 </odoo>

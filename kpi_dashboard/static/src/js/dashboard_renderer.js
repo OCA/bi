@@ -11,7 +11,7 @@ odoo.define('kpi_dashboard.DashboardRenderer', function (require) {
 
     var DashboardRenderer= BasicRenderer.extend({
         className: "o_dashboard_view",
-        _getDashboardWidget: function(kpi) {
+        _getDashboardWidget: function (kpi) {
             var Widget = registry.getAny([
                 kpi.widget, 'abstract',
             ]);
@@ -19,14 +19,21 @@ odoo.define('kpi_dashboard.DashboardRenderer', function (require) {
             return widget;
         },
         _renderView: function () {
-            this.$el.html($(qweb.render('dashboard_kpi.base')));
-            this.$el.find('.gridster').css('width', this.state.specialData.width)
+            this.$el.html($(qweb.render('dashboard_kpi.dashboard')));
+            this.$el
+                .css('background-color', this.state.specialData.background_color);
+            this.$el.find('.gridster')
+                .css('width', this.state.specialData.width);
             this.$grid = this.$el.find('.gridster ul')
             var self = this;
             this.kpi_widget = {};
-            _.each(this.state.specialData.kpi_ids, function(kpi) {
+            _.each(this.state.specialData.kpi_ids, function (kpi) {
+                var element = $(qweb.render('kpi_dashboard.kpi', {widget: kpi}));
+                element.css('background-color', kpi.color);
+                element.css('color', kpi.font_color)
+                self.$grid.append(element);
                 self.kpi_widget[kpi.id] = self._getDashboardWidget(kpi);
-                self.kpi_widget[kpi.id].appendTo(self.$grid);
+                self.kpi_widget[kpi.id].appendTo(element);
             });
             this.$grid.gridster({
                 widget_margins: [
@@ -49,7 +56,7 @@ odoo.define('kpi_dashboard.DashboardRenderer', function (require) {
             );
             return $.when();
         },
-        _onNotification: function(notifications) {
+        _onNotification: function (notifications) {
             var self = this;
             _.each(notifications, function (notification) {
                 var channel = notification[0];
@@ -65,5 +72,4 @@ odoo.define('kpi_dashboard.DashboardRenderer', function (require) {
     });
 
     return DashboardRenderer;
-
 });

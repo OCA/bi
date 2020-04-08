@@ -3,6 +3,7 @@
     @include o-webclient-padding($top: $o-horizontal-padding/2, $bottom: $o-horizontal-padding/2);
     display: flex;
     >.gridster {
+        margin: 0 auto;
         >ul {
             >li {
                 text-align: center;
@@ -27,12 +28,52 @@
     }
     .numbervalue {
         text-transform: uppercase;
-        font-size: 76px;
+        font-size: 54px;
         font-weight: 700;
     }
     .change-rate {
         font-weight: 500;
         font-size: 30px;
+    }
+    .hidden {
+        display: none;
+    }
+    .o_kpi_dashboard_toggle_button {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        margin: -1px -1px auto auto;
+        padding: 8px 16px;
+        border: 1px solid transparent;
+        border-bottom: none;
+        height: 35px;
+    }
+    .o_kpi_dashboard_manage_panel {
+        @include o-position-absolute($right: -1px, $top: 34px);
+        margin-top: -1px;
+        &.container {
+            width: 95%;
+            max-width: 400px;
+        }
+        > .o_kanban_card_manage_section {
+            border-bottom: 1px solid gray('300');
+            margin-bottom: 10px;
+        }
+        > div {
+            padding: 3px 0 3px 20px;
+            visibility: visible;
+            margin-bottom: 5px;
+        }
+    }
+    .o_dropdown_open {
+        .o_kpi_dashboard_manage_panel {
+            display: block;
+        }
+        .o_kpi_dashboard_toggle_button {
+            background: white;
+            border-color: gray('400');
+            z-index: $zindex-dropdown + 1;
+        }
     }
     .GaugeMeter {
         position: relative;
@@ -45,11 +86,9 @@
             margin:	0 23%;
             width: 54%;
             position: absolute;
-            text-align: venter;
+            text-align: center;
             display: inline-block;
-            color: RGBa(0,0,0,.8);
             font-height: 100;
-            font-family: "Open Sans", Arial;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -60,9 +99,7 @@
         }
         S, U{
             Text-Decoration:None;
-            Font-Size: .30em;
-            Font-Weight: 200;
-            Opacity: .6;
+            font-height: 100;
         }
         B{
             Color: Black;

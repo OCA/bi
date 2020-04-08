@@ -23,11 +23,14 @@ class KpiKpi(models.Model):
     args = fields.Char()
     kwargs = fields.Char()
     widget = fields.Selection(
-        [("number", "Number"), ("meter", "Meter")],
+        [("number", "Number"), ("meter", "Meter"), ("graph", "Graph")],
         required=True,
         default="number",
     )
     value_last_update = fields.Datetime(readonly=True)
+    prefix = fields.Char()
+    suffix = fields.Char()
+    action_id = fields.Many2one("ir.actions.actions")
 
     def _cron_vals(self):
         return {
@@ -79,6 +82,32 @@ class KpiKpi(models.Model):
             "min": 0,
             "max": 100,
             "value": random.random() * 100,
+        }
+
+    def test_demo_graph(self):
+        return {
+            "graphs": [
+                {
+                    "values": [
+                        {"x": i, "y": random.random() * 1000}
+                        for i in range(1, 12)
+                    ],
+                    "title": "Current Year",
+                    "key": "current",
+                    "area": True,
+                    "color": "ffffff",
+                },
+                {
+                    "values": [
+                        {"x": i, "y": random.random() * 1000}
+                        for i in range(1, 12)
+                    ],
+                    "title": "Previous Year",
+                    "key": "previous",
+                    "area": True,
+                    "color": "000000",
+                },
+            ]
         }
 
     def generate_cron(self):

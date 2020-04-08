@@ -8,19 +8,38 @@ odoo.define('kpi_dashboard.NumberWidget', function (require) {
 
     var NumberWidget = AbstractWidget.extend({
         template: 'kpi_dashboard.number',
-        fillWidget: function(values) {
+        shortNumber: function (num) {
+            if (Math.abs(num) >= 1000000000000)
+                return field_utils.format.integer(num / 1000000000000, false, {
+                    digits: [3,1]}) + 'T';
+            if (Math.abs(num) >= 1000000000)
+                return field_utils.format.integer(num / 1000000000, false, {
+                    digits: [3,1]}) + 'G';
+            if (Math.abs(num) >= 1000000)
+                return field_utils.format.integer(num / 1000000, false, {
+                    digits: [3,1]}) + 'M';
+            if (Math.abs(num) >= 1000)
+                return field_utils.format.float(num / 1000, false, {
+                    digits: [3,1]}) + 'K';
+            if (Math.abs(num) >= 10)
+                return field_utils.format.float(num, false, {
+                    digits: [3,1]});
+            return field_utils.format.float(num, false, {
+                    digits: [3,2]});
+        },
+        fillWidget: function (values) {
             var widget = this.$el;
             var value = values.value.value;
             if (value === undefined)
                 value = 0;
             var item = widget.find('[data-bind="value"]')
             if (item)
-                item.text(field_utils.format.integer(value));
+                item.text(this.shortNumber(value));
             var previous = values.value.previous;
 
             var $change_rate = widget.find('.change-rate')
             if (previous === undefined) {
-                $change_rate .toggleClass('active', false);
+                $change_rate.toggleClass('active', false);
             }
             else {
                 var difference = 0;

@@ -13,14 +13,14 @@ odoo.define('kpi_dashboard.DashboardView', function (require) {
     var DashboardView = BasicView.extend({
         jsLibs: [
             '/kpi_dashboard/static/lib/gridster/jquery.dsmorse-gridster.min.js',
-            '/kpi_dashboard/static/lib/gauge/GaugeMeter.js',
         ],
         cssLibs: [
             '/kpi_dashboard/static/lib/gridster/jquery.dsmorse-gridster.min.css',
         ],
         accesskey: "d",
-        display_name: _lt("Kanban"),
+        display_name: _lt("Dashboard"),
         icon: 'fa-tachometer',
+        viewType: 'dashboard',
         config: _.extend({}, BasicView.prototype.config, {
             Controller: DashboardController,
             Renderer: DashboardRenderer,
@@ -35,9 +35,7 @@ odoo.define('kpi_dashboard.DashboardView', function (require) {
         }
     });
 
-    view_registry
-        .add('dashboard', DashboardView);
+    view_registry.add('dashboard', DashboardView);
 
     return DashboardView;
-
 });
