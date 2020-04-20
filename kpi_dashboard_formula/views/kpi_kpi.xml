@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 Creu Blanca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="kpi_kpi_form_view">
+        <field name="name">kpi.kpi.form (in kpi_dashboard_formula)</field>
+        <field name="model">kpi.kpi</field>
+        <field name="inherit_id" ref="kpi_dashboard.kpi_kpi_form_view"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page name="code" string="Code" attrs="{'invisible': [('computation_method', '!=', 'code')]}">
+                    <field name="code" widget="ace"
+                           options="{'mode': 'python'}"
+                           placeholder="Enter Python code here."/>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+
+
+</odoo>
